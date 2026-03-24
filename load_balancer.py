@@ -1,14 +1,20 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, RedirectResponse
 import requests
+import os
+from dotenv import load_dotenv
 
 app = FastAPI()
 
-servers = [
-    "http://127.0.0.1:8001/",
-    "http://127.0.0.1:8002/",
-    "http://127.0.0.1:8003/"
-]
+load_dotenv()
+
+# servers = [
+#     "http://127.0.0.1:8001/",
+#     "http://127.0.0.1:8002/",
+#     "http://127.0.0.1:8003/"
+# ]
+
+servers = os.getenv("SERVERS").split(",")
 
 current = 0  # round robin pointer
 
