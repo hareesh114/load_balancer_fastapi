@@ -37,8 +37,8 @@ async def load_balance(endpoint:str, request:Request):
         if key.lower() != "host"
     }
 
-    # print("Incoming headers:", request.headers)
-    # print("Forwarded headers:", headers)
+    print("Incoming headers:", request.headers)
+    print("Forwarded headers:", headers)
 
     try:
         if request.method == "POST":
