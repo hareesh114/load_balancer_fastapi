@@ -43,17 +43,22 @@ async def load_balance(endpoint:str, request:Request):
     try:
         if request.method == "POST":
             body = await request.json()
+            print("calling urlshortner post request")
             response = requests.post(url, json=body, headers=headers)
+            print("called urlshortner post request")
+            print("returning urlshortner post request")
             return JSONResponse({
                 "forwarded_to": server,
                 "backend_response": response.json()
             })
         else:
+            print("calling urlshortner get request")
             response = requests.get(url, headers=headers, allow_redirects=False)
-            
-            if response.status_code in [301, 302]:            
+            print("called urlshortner get request")
+            if response.status_code in [301, 302]:
+                print("redirecting urlshortner get request")            
                 return RedirectResponse(response.headers["Location"])
-
+            print("returning urlshortner get request")
             return JSONResponse(
                 content={"response": response.text},
                 status_code=response.status_code
